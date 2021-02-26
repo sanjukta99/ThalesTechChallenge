@@ -5,6 +5,7 @@ import JSONPage from "./JSONPage";
 import { BrowserRouter as Router, Switch, Route, Link, Redirect} from "react-router-dom";
 import HomePageLogo from "./plane.png";
 import Button from '@material-ui/core/Button';
+import StatsTable from './StatsTable';
 
 export default class HomePage extends Component {
     constructor(props) {
@@ -22,6 +23,7 @@ export default class HomePage extends Component {
                     </div>
                     <div class="homepage-buttons">
                     <Button variant="contained"  to="/airport-list" component={Link}> Airports </Button>
+                    <Button variant="contained" to="/table" component={Link}> Statistics </Button>
                     <Button variant="contained" to="/json" component={Link}> JSON </Button>
                     </div>
                 </div> 
@@ -29,6 +31,7 @@ export default class HomePage extends Component {
                 <Route exact path='/airport-list' component={AirportListPage}></Route>
                 <Route exact path='/airport/:icao' component={AirportPage} />
                 <Route exact path='/json' component={JSONPage} />
+                <Route exact path='/table' component={StatsTable} />
             </Switch>
         </Router>
     }

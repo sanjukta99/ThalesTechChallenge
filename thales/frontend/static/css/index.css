@@ -131,3 +131,25 @@ div.scroll {
   align-items: center;
   justify-content: center;
 }
+
+.table-container {
+  display: flex;
+  position: absolute;
+  width: 500px;
+  height: 200px;
+  align-items: center;
+  justify-content: center;
+  left: 300px;
+  top: 130px;
+}
+
+.table-buttons-container {
+  display: flex;
+  position: absolute;
+  width: 500px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  left: 300px;
+  top: 70px;
+}

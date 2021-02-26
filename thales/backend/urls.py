@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import CreateAirportListView, AirportListView, GetAirportByICAOView, GetSIDSbyICAO, GetSTARsbyICAO, GetSIDsJSON, GetSTARsJSON, CreateSIDsSlackNotification, CreateSTARsSlackNotification
+from .views import CreateAirportListView, AirportListView, GetAirportByICAOView, GetSIDSbyICAO, GetSTARsbyICAO, GetSIDsJSON, GetSTARsJSON, CreateSIDsSlackNotification, CreateSTARsSlackNotification, GetSIDsJSONArray, GetSTARsJSONArray
 
 urlpatterns = [
     path('create-airport-list', CreateAirportListView.as_view()),
@@ -10,5 +10,7 @@ urlpatterns = [
     path('get-sids-json', GetSIDsJSON.as_view()),
     path('get-stars-json', GetSTARsJSON.as_view()),
     path('sids-slack-notif', CreateSIDsSlackNotification.as_view()),
-    path('stars-slack-notif', CreateSTARsSlackNotification.as_view())
+    path('stars-slack-notif', CreateSTARsSlackNotification.as_view()),
+    path('sids-table', GetSIDsJSONArray.as_view()),
+    path('stars-table', GetSTARsJSONArray.as_view())
 ]

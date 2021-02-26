@@ -24,7 +24,6 @@ export default class JSONPage extends Component {
               sids: sids
             });
           });
-        console.log(this.state.sids)
     }
 
     handleSIDsButtonPressed() {

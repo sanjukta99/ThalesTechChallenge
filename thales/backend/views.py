@@ -159,6 +159,91 @@ class GetSTARsJSON(APIView):
             finalobj.append(airportobj)
         return Response(finalobj, status=status.HTTP_200_OK)
 
+class GetSIDsJSONArray(APIView):
+    def get(self, request, format=None):
+        finalobj = []
+        url = "https://open-atms.airlab.aero/api/v1/airac/airports"
+        headers = {
+            "api-key" : "lgBaEkJ1TLQrwFDhtwe2mqLWIgoiyxue9kmrNkvOKpdjfhyXHIcdw7MNLmTLopH6"
+        }
+        response = requests.get(url, headers=headers)
+
+        for obj in response.json():
+            airportobj = {}
+            airportobj['airport'] = obj['icao']
+            urlsid = "https://open-atms.airlab.aero/api/v1/airac/sids/airport/{}".format(obj['icao'])
+            responsesid = requests.get(urlsid, headers=headers)
+            count = {}
+            for obj in responsesid.json():
+                for wp in obj['waypoints']:
+                    if wp['name'] in count:
+                        count[wp['name']] = count[wp['name']] + 1
+                    else:
+                        count[wp['name']] = 1
+            two_largest = nlargest(2, count, key=count.get)
+            topWaypoints = []
+            for i in two_largest:
+                wp = {}
+                wp['name'] = i
+                wp['count'] = count[i]
+                topWaypoints.append(wp)
+            airportobj['topWaypoints'] = topWaypoints
+            finalobj.append(airportobj)
+        
+        returnObj = []
+        for row in finalobj:
+            airport = row['airport']
+            for dict in row['topWaypoints']:
+                toAppend = {}
+                toAppend['airport'] = airport
+                toAppend['waypoint'] = dict['name']
+                toAppend['count'] = dict['count']
+                returnObj.append(toAppend)
+        return Response(returnObj, status=status.HTTP_200_OK)
+
+class GetSTARsJSONArray(APIView):
+    def get(self, request, format=None):
+        finalobj = []
+        url = "https://open-atms.airlab.aero/api/v1/airac/airports"
+        headers = {
+            "api-key" : "lgBaEkJ1TLQrwFDhtwe2mqLWIgoiyxue9kmrNkvOKpdjfhyXHIcdw7MNLmTLopH6"
+        }
+        response = requests.get(url, headers=headers)
+
+        for obj in response.json():
+            airportobj = {}
+            airportobj['airport'] = obj['icao']
+            urlsid = "https://open-atms.airlab.aero/api/v1/airac/stars/airport/{}".format(obj['icao'])
+            responsesid = requests.get(urlsid, headers=headers)
+            count = {}
+            for obj in responsesid.json():
+                for wp in obj['waypoints']:
+                    if wp['name'] in count:
+                        count[wp['name']] = count[wp['name']] + 1
+                    else:
+                        count[wp['name']] = 1
+            two_largest = nlargest(2, count, key=count.get)
+            topWaypoints = []
+            for i in two_largest:
+                wp = {}
+                wp['name'] = i
+                wp['count'] = count[i]
+                topWaypoints.append(wp)
+            airportobj['topWaypoints'] = topWaypoints
+            finalobj.append(airportobj)
+        
+        returnObj = []
+        for row in finalobj:
+            airport = row['airport']
+            for dict in row['topWaypoints']:
+                toAppend = {}
+                toAppend['airport'] = airport
+                toAppend['waypoint'] = dict['name']
+                toAppend['count'] = dict['count']
+                returnObj.append(toAppend)
+        return Response(returnObj, status=status.HTTP_200_OK)
+
+
     
 # SLACK BOT VIEWS
 class CreateSIDsSlackNotification(APIView):

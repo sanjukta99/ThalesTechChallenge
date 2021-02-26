@@ -4,5 +4,6 @@ urlpatterns = [
     path('', index),
     path('airport-list', index),
     path('airport/<str:icao>', index),
-    path('json', index)
+    path('json', index),
+    path('table', index)
 ]
